@@ -1,4 +1,4 @@
-require "gemfile_arranger/version"
+require 'gemfile_arranger/version'
 
 module GemfileArranger
   # Your code goes here...
