@@ -1,1 +1,37 @@
 cat "Gemfile" | GemfileArranger::Base.generate(GemfileArrange.traverse(GemfileArranger::Base.parse(ARGF.read))) > Gemfile
+
+sort order
+
+1. source
+2. ruby
+3. preferred gem
+4. gem
+5. group development
+7. group production
+8. group staging
+6. group test
+
+yaml setting(idea: .gemfile_arranger.yml)
+
+sort:
+  - ascii asc
+block_order:
+  - source
+  - ruby
+  - preferred_gem
+  - gem
+  - group
+    - development
+    - production
+    - staging
+    - test
+preferred_gem:
+  - rails
+  - redis
+
+idobata rule:
+  https://gist.github.com/kakutani/43b9f42197ab002fcdf8
+
+examples:
+  - examples/idobata.io.Gemfile
+  - examples/pigeon.tachikoma.io.Gemfile

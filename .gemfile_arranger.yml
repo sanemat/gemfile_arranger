@@ -1,0 +1,15 @@
+sort:
+  - ascii asc
+block_order:
+  - source
+  - ruby
+  - preferred_gem
+  - gem
+  - group
+    - development
+    - production
+    - staging
+    - test
+preferred_gem:
+  - rails
+  - redis
