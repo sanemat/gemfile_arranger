@@ -1,0 +1,1 @@
+cat "Gemfile" | GemfileArranger::Base.generate(GemfileArrange.traverse(GemfileArranger::Base.parse(ARGF.read))) > Gemfile
