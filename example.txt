@@ -1,1 +1,54 @@
 cat "Gemfile" | GemfileArranger::Base.generate(GemfileArrange.traverse(GemfileArranger::Base.parse(ARGF.read))) > Gemfile
+
+sort order
+
+1. source
+2. ruby
+3. gem (group _nameless)
+4. group production
+5. group staging
+6. group development
+7. group test
+
+yaml setting(idea: .gemfile_arranger.yml)
+
+sort:
+  - ascii asc
+block_order:
+  - source
+  - ruby
+  - gem
+  - group
+    - production
+    - staging
+    - development
+    - test
+priority_gem:
+  - rails
+  - redis
+
+idobata rule:
+  https://gist.github.com/kakutani/43b9f42197ab002fcdf8
+
+examples:
+  - examples/idobata.io.Gemfile
+  - examples/pigeon.tachikoma.io.Gemfile
+
+## 説明
+
+1. どのブロックなのかがわかる
+2. ブロックごとに並べる
+3. ブロックの中で、
+
+- sourceを一番上のグループ、rubyを二番目のグループに持ってくる(確定)
+- 裸のgemかつgroup指定がないものを三番目のグループに持ってくる _nameless という名前を与える
+- group指定順にグループに並べる
+- groupの並び順設定通りに並べる
+- groupの並び順設定がなければ、sortの設定で、groupを並べる
+- priority_gem設定があり、各group内でpriority_gemがあったら、まずその順番に並べる
+- 3番目のグループから、sortの設定で、gemを並べ替える
+
+## 懸念
+
+- priority gem の扱い、優先順位
+- 裸のgemにgroupがついていたら?? -> { group: :development } がつくだけなので注意
