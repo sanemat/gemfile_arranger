@@ -4,12 +4,11 @@ sort order
 
 1. source
 2. ruby
-3. priority gem
-4. gem
-5. group development
-7. group production
-8. group staging
-6. group test
+3. gem (group _nameless)
+4. group production
+5. group staging
+6. group development
+7. group test
 
 yaml setting(idea: .gemfile_arranger.yml)
 
@@ -18,12 +17,11 @@ sort:
 block_order:
   - source
   - ruby
-  - priority_gem
   - gem
   - group
-    - development
     - production
     - staging
+    - development
     - test
 priority_gem:
   - rails
@@ -43,7 +41,7 @@ examples:
 3. ブロックの中で、
 
 - sourceを一番上のグループ、rubyを二番目のグループに持ってくる(確定)
-- 裸のgemかつgroup指定がないものを三番目のグループに持ってくる group_without_block という名前を与える
+- 裸のgemかつgroup指定がないものを三番目のグループに持ってくる _nameless という名前を与える
 - group指定順にグループに並べる
 - groupの並び順設定通りに並べる
 - groupの並び順設定がなければ、sortの設定で、groupを並べる

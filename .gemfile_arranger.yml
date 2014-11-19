@@ -3,12 +3,11 @@ sort:
 block_order:
   - source
   - ruby
-  - priority_gem
   - gem
   - group
-    - development
     - production
     - staging
+    - development
     - test
 priority_gem:
   - rails
