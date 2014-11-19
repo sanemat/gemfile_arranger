@@ -3,13 +3,13 @@ sort:
 block_order:
   - source
   - ruby
-  - preferred_gem
+  - priority_gem
   - gem
   - group
     - development
     - production
     - staging
     - test
-preferred_gem:
+priority_gem:
   - rails
   - redis

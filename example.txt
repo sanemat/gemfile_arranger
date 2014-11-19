@@ -4,7 +4,7 @@ sort order
 
 1. source
 2. ruby
-3. preferred gem
+3. priority gem
 4. gem
 5. group development
 7. group production
@@ -18,14 +18,14 @@ sort:
 block_order:
   - source
   - ruby
-  - preferred_gem
+  - priority_gem
   - gem
   - group
     - development
     - production
     - staging
     - test
-preferred_gem:
+priority_gem:
   - rails
   - redis
 
