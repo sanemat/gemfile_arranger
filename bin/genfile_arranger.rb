@@ -15,11 +15,10 @@ class SortBlock < Parser::Rewriter
 end
 
 code = <<-EOF
+gem 'action_args'
 source 'https://rubygems.org'
 
 ruby '2.1.2'
-
-gem 'action_args'
 EOF
 
 buffer        = Parser::Source::Buffer.new('(example)')
