@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'gemfile_arranger'
-
 require 'parser/current'
 
 class RemoveDo < Parser::Rewriter
@@ -12,17 +11,22 @@ class RemoveDo < Parser::Rewriter
   end
 end
 
-code = <<-EOF
-while true do
-  puts 'hello'
+class SortBlock < Parser::Rewriter
 end
+
+code = <<-EOF
+source 'https://rubygems.org'
+
+ruby '2.1.2'
+
+gem 'action_args'
 EOF
 
 buffer        = Parser::Source::Buffer.new('(example)')
 buffer.source = code
 parser        = Parser::CurrentRuby.new
 ast           = parser.parse(buffer)
-rewriter      = RemoveDo.new
+rewriter      = SortBlock.new
 
 # Rewrite the AST, returns a String with the new form.
 puts rewriter.rewrite(buffer, ast)
