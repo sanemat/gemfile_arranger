@@ -27,7 +27,6 @@ ruby '2.1.2'
 gem 'action_args'
 EOF
 
-
 buffer        = Parser::Source::Buffer.new('(example)')
 buffer.source = code
 parser        = Parser::CurrentRuby.new
