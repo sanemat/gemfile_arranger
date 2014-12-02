@@ -65,8 +65,9 @@ end
 processor = SourceProcessor.new
 # pp processor.process(ast)
 rewrited_ast = processor.process(ast)
-new_buffer = Parser::Source::Buffer.new('(new)')
-puts rewriter.rewrite(new_buffer, rewrited_ast)
+puts Unparser.unparse(rewrited_ast)
+# new_buffer = Parser::Source::Buffer.new('(new)')
+# puts rewriter.rewrite(new_buffer, rewrited_ast)
 # new_source = rewriter.rewrite(new_buffer, rewrited_ast)
 # new_buffer.source = new_source
 #
