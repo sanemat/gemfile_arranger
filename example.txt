@@ -19,10 +19,11 @@ block_order:
   - ruby
   - gem
   - group
-    - production
-    - staging
-    - development
-    - test
+group:
+  - production
+  - staging
+  - development
+  - test
 priority_gem:
   - rails
   - redis
