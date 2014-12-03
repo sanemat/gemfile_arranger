@@ -8,8 +8,6 @@ require 'safe_yaml/load'
 
 base_config = SafeYAML.load_file('config/.gemfile_arranger.base.yml')
 
-puts config
-
 code = <<-EOF
 # comment 1
 gem 'action_args'
