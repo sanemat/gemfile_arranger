@@ -4,6 +4,10 @@ require 'parser/current'
 require 'byebug'
 require 'pp'
 require 'unparser'
+require 'safe_yaml/load'
+
+config = SafeYAML.load_file('config/.gemfile_arranger.base.yml')
+puts config
 
 class RemoveDo < Parser::Rewriter
   def on_while(node)
