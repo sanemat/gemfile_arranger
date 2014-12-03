@@ -7,6 +7,7 @@ require 'unparser'
 require 'safe_yaml/load'
 
 base_config = SafeYAML.load_file('config/.gemfile_arranger.base.yml')
+CONFIG = base_config
 
 code = <<-EOF
 # comment 1
@@ -29,9 +30,16 @@ ast           = parser.parse(buffer)
 
 class SourceProcessor < Parser::AST::Processor
   def on_begin(node)
-    node.updated(:begin, node.children.sort_by{|child| child.children[1]})
-    # nodes = process_all(node)
-    # name, args, *body = *node
+    sorted_block = sort_block_with_keys(node, keys)
+    node.updated(:begin, sorted_block)
+  end
+
+  def keys
+    Array(CONFIG['block_order'].dup).push('_undefined')
+  end
+
+  def sort_block_with_keys(node, keys)
+    node.children.sort_by { |child| child.children[1] }
   end
 end
 
