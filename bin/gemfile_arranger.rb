@@ -68,6 +68,22 @@ class SortBlockTraverser < Parser::AST::Processor
   end
 end
 
+class SortGemInGroupTraverser < Parser::AST::Processor
+  def on_block(node)
+    sorted_block = sort_gem_in_group(node)
+    node.updated(:block, sorted_block)
+  end
+
+  def sort_gem_in_group(node)
+    node
+    node.children[0]
+    node
+  end
+end
+
+
 processor = SortBlockTraverser.new
 rewrited_ast = processor.process(ast)
+gem_in_group = SortGemInGroupTraverser.new
+rewrited_ast = gem_in_group.process(rewrited_ast)
 puts Unparser.unparse(rewrited_ast)
