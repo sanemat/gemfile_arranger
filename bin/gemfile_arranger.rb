@@ -13,6 +13,8 @@ code = <<-EOF
 # comment 1
 gem 'action_args'
 source 'https://rubygems.org'
+gem 'foo'
+gem 'bar'
 
 ruby '2.1.2' # comment 2
 EOF
@@ -21,6 +23,8 @@ expect = <<-EOF
 source 'https://rubygems.org'
 ruby '2.1.2'
 gem 'action_args'
+gem 'bar'
+gem 'foo'
 EOF
 
 buffer        = Parser::Source::Buffer.new('(example)')
@@ -35,11 +39,15 @@ class SourceProcessor < Parser::AST::Processor
   end
 
   def keys
-    Array(CONFIG['block_order'].dup).push('_undefined')
+    Array(CONFIG['block_order'].dup).map(&:to_sym)
   end
 
   def sort_block_with_keys(node, keys)
-    node.children.sort_by { |child| child.children[1] }
+    node.children.sort_by.with_index do |child, i|
+      _, args, *_ = child.children
+      key_index = keys.index(args) || keys.lengh
+      [key_index, i]
+    end
   end
 end
 
