@@ -32,7 +32,7 @@ buffer.source = code
 parser        = Parser::CurrentRuby.new
 ast           = parser.parse(buffer)
 
-class SourceProcessor < Parser::AST::Processor
+class SortBlockTraverser < Parser::AST::Processor
   def on_begin(node)
     sorted_block = sort_block_with_keys(node, keys)
     node.updated(:begin, sorted_block)
@@ -51,6 +51,6 @@ class SourceProcessor < Parser::AST::Processor
   end
 end
 
-processor = SourceProcessor.new
+processor = SortBlockTraverser.new
 rewrited_ast = processor.process(ast)
 puts Unparser.unparse(rewrited_ast)
