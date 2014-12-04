@@ -62,7 +62,7 @@ class SortBlockTraverser < Parser::AST::Processor
   def sort_block_with_keys(node, keys)
     node.children.sort_by.with_index do |child, i|
       _, args, *_ = child.children
-      key_index = keys.index(args) || keys.lengh
+      key_index = keys.index(args) || keys.length
       [key_index, i]
     end
   end
