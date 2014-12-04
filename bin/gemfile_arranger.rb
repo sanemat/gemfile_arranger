@@ -16,6 +16,15 @@ source 'https://rubygems.org'
 gem 'foo'
 gem 'bar'
 
+group :development do
+  gem 'bullet'
+end
+
+group :test do
+  gem 'database_rewinder'
+  gem 'capybara-webkit'
+end
+
 ruby '2.1.2' # comment 2
 EOF
 
@@ -25,6 +34,14 @@ ruby '2.1.2'
 gem 'action_args'
 gem 'bar'
 gem 'foo'
+group :development do
+  gem 'bullet'
+end
+
+group :test do
+  gem 'capybara-webkit'
+  gem 'database_rewinder'
+end
 EOF
 
 buffer        = Parser::Source::Buffer.new('(example)')
