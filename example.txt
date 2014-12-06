@@ -43,12 +43,10 @@ examples:
 2. ブロックごとに並べる
 3. ブロックの中で、
 
-x sourceを一番上のグループ、rubyを二番目のグループに持ってくる(確定)
-- 裸のgemかつgroup指定がないものを三番目のグループに持ってくる _nameless という名前を与える
-- group指定順にグループに並べる
+- [x] sourceを一番上のグループ、rubyを二番目のグループ, gemspecを三番目, gemを四番目, groupを五番目に並べる
 - groupの並び順設定通りに並べる
 - groupの並び順設定がなければ、sortの設定で、groupを並べる
-x priority_gem設定があり、各group内でpriority_gemがあったら、まずその順番に並べる
+- [x] priority_gem設定があり、各group内でpriority_gemがあったら、まずその順番に並べる
 - 3番目のグループから、sortの設定で、gemを並べ替える
 
 ## 懸念
