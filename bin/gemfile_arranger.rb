@@ -13,12 +13,14 @@ code = <<-EOF
 # comment 1
 gem 'action_args'
 source 'https://rubygems.org'
-gem 'foo'
 gem 'bar'
+gemspec
 
 group :development do
   gem 'bullet'
 end
+
+gem 'foo'
 
 group :test do
   gem 'database_rewinder'
@@ -32,6 +34,7 @@ EOF
 expect = <<-EOF
 source 'https://rubygems.org'
 ruby '2.1.2'
+gemspec
 gem 'action_args'
 gem 'bar'
 gem 'foo'

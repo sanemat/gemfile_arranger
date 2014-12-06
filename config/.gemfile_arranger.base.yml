@@ -3,6 +3,7 @@ sort:
 block_order:
   - source
   - ruby
+  - gemspec
   - gem
   - group
 group:

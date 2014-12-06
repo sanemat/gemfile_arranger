@@ -4,11 +4,12 @@ sort order
 
 1. source
 2. ruby
-3. gem (group _nameless)
-4. group production
-5. group staging
-6. group development
-7. group test
+3. gemspec
+4. gem (group _nameless)
+5. group production
+6. group staging
+7. group development
+8. group test
 
 yaml setting(idea: .gemfile_arranger.yml)
 
@@ -17,6 +18,7 @@ sort:
 block_order:
   - source
   - ruby
+  - gemspec
   - gem
   - group
 group:
