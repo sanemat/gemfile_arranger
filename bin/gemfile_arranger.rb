@@ -23,6 +23,10 @@ end
 gem 'foo'
 gem 'abba'
 
+platforms :ruby do
+  gem 'mami'
+end
+
 group :test do
   gem 'database_rewinder'
   gem 'capybara-webkit'
@@ -48,6 +52,10 @@ group :test do
   gem 'redis'
   gem 'capybara-webkit'
   gem 'database_rewinder'
+end
+
+platforms :ruby do
+  gem 'mami'
 end
 EOF
 

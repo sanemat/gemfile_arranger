@@ -51,5 +51,5 @@ examples:
 
 ## 懸念
 
-- priority gem の扱い、優先順位
 - 裸のgemにgroupがついていたら?? -> { group: :development } がつくだけなので注意
+- Bundler::Dsl にpublicで定義されたメソッドしか使えない ホワイトリストで良さそう(ただし動的に作る)
