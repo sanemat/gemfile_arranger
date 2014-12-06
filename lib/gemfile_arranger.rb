@@ -1,4 +1,4 @@
-require 'parser'
+require 'parser/current'
 
 module GemfileArranger
   require 'gemfile_arranger/sort_block_traverser'

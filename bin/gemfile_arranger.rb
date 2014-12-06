@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'gemfile_arranger'
-require 'parser/current'
 require 'byebug'
 require 'pp'
 require 'unparser'
