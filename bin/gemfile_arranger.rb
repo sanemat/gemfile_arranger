@@ -88,9 +88,10 @@ class SortGemInGroupTraverser < Parser::AST::Processor
   end
 end
 
+sort_gem_in_group = SortGemInGroupTraverser.new
+rewrited_ast = sort_gem_in_group.process(ast)
 
-processor = SortBlockTraverser.new(CONFIG['block_order'])
-rewrited_ast = processor.process(ast)
-gem_in_group = SortGemInGroupTraverser.new
-rewrited_ast = gem_in_group.process(rewrited_ast)
+sort_block = SortBlockTraverser.new(CONFIG['block_order'])
+rewrited_ast = sort_block.process(rewrited_ast)
+
 puts Unparser.unparse(rewrited_ast)
