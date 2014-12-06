@@ -36,8 +36,8 @@ expect = <<-EOF
 source 'https://rubygems.org'
 ruby '2.1.2'
 gemspec
-gem 'action_args'
 gem 'abba'
+gem 'action_args'
 gem 'bar'
 gem 'foo'
 group :development do
