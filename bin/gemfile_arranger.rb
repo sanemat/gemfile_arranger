@@ -52,7 +52,7 @@ ast           = parser.parse(buffer)
 class SortBlockTraverser < Parser::AST::Processor
   def on_begin(node)
     sorted_block = sort_block_with_keys(node, keys)
-    node.updated(:begin, sorted_block) unless node != sorted_block
+    node.updated(:begin, sorted_block) if node != sorted_block
   end
 
   def keys
@@ -71,7 +71,7 @@ end
 class SortGemInGroupTraverser < Parser::AST::Processor
   def on_block(node)
     sorted_block = sort_gem_in_group(node)
-    node.updated(:block, sorted_block) unless node != sorted_block
+    node.updated(:block, sorted_block) if node != sorted_block
   end
 
   def sort_gem_in_group(node)
