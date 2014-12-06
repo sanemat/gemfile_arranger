@@ -64,37 +64,11 @@ buffer.source = code
 parser        = Parser::CurrentRuby.new
 ast           = parser.parse(buffer)
 
-class SortPriorityGemInGroupTraverser < Parser::AST::Processor
-  def initialize(keys)
-    @keys = Array(keys.dup).map(&:to_s)
-  end
-
-  def on_block(node)
-    sorted_block = sort_gem_in_group_with_keys(node, @keys)
-    node.updated(:block, sorted_block) if node != sorted_block
-  end
-
-  def sort_gem_in_group_with_keys(node, keys)
-    send_node, args_node, body_node = node.children
-    return node if send_node.children[1] != :group
-    return node if body_node.type != :begin
-    gems = body_node.children.sort_by.with_index do |child, i|
-      gem_name = child.children[2].children[0]
-      key_index = keys.index(gem_name) || keys.length
-      [key_index, i]
-    end
-    return node if body_node.children == gems
-
-    sorted_body_node = body_node.updated(:begin, gems)
-    [send_node, args_node, sorted_body_node]
-  end
-end
-
 sort_gems_in_group = GemfileArranger::SortGemsInGroupTraverser.new
 rewrited_ast = sort_gems_in_group.process(ast)
 
-sort_priority_gem_in_group = SortPriorityGemInGroupTraverser.new(CONFIG['priority_gem'])
-rewrited_ast = sort_priority_gem_in_group.process(rewrited_ast)
+sort_priority_gems_in_group = GemfileArranger::SortPriorityGemsInGroupTraverser.new(CONFIG['priority_gem'])
+rewrited_ast = sort_priority_gems_in_group.process(rewrited_ast)
 
 sort_block = GemfileArranger::SortBlockTraverser.new(CONFIG['block_order'])
 rewrited_ast = sort_block.process(rewrited_ast)
