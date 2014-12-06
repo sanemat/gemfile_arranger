@@ -23,6 +23,7 @@ end
 group :test do
   gem 'database_rewinder'
   gem 'capybara-webkit'
+  gem 'redis'
 end
 
 ruby '2.1.2' # comment 2
@@ -39,6 +40,7 @@ group :development do
 end
 
 group :test do
+  gem 'redis'
   gem 'capybara-webkit'
   gem 'database_rewinder'
 end
