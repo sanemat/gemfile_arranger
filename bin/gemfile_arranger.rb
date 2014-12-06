@@ -63,13 +63,13 @@ buffer.source = code
 parser        = Parser::CurrentRuby.new
 ast           = parser.parse(buffer)
 
-sort_gems_in_group = GemfileArranger::SortGemsInGroupTraverser.new
+sort_gems_in_group = GemfileArranger::Traverse::SortGemsInGroup.new
 rewrited_ast = sort_gems_in_group.process(ast)
 
-sort_priority_gems_in_group = GemfileArranger::SortPriorityGemsInGroupTraverser.new(CONFIG['priority_gem'])
+sort_priority_gems_in_group = GemfileArranger::Traverse::SortPriorityGemsInGroup.new(CONFIG['priority_gem'])
 rewrited_ast = sort_priority_gems_in_group.process(rewrited_ast)
 
-sort_block = GemfileArranger::SortBlockTraverser.new(CONFIG['block_order'])
+sort_block = GemfileArranger::Traverse::SortBlock.new(CONFIG['block_order'])
 rewrited_ast = sort_block.process(rewrited_ast)
 
 puts Unparser.unparse(rewrited_ast)
