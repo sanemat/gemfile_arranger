@@ -21,6 +21,7 @@ group :development do
 end
 
 gem 'foo'
+gem 'abba'
 
 group :test do
   gem 'database_rewinder'
@@ -36,6 +37,7 @@ source 'https://rubygems.org'
 ruby '2.1.2'
 gemspec
 gem 'action_args'
+gem 'abba'
 gem 'bar'
 gem 'foo'
 group :development do
