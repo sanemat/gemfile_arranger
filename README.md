@@ -1,5 +1,11 @@
 # GemfileArranger
 
+[![Gem Version](http://img.shields.io/gem/v/gemfile_arranger.svg?style=flat)](http://badge.fury.io/rb/gemfile_arranger)
+[![Build Status](http://img.shields.io/travis/sanemat/gemfile_arranger/master.svg?style=flat)](https://travis-ci.org/sanemat/gemfile_arranger)
+[![Code Climate](http://img.shields.io/codeclimate/github/sanemat/gemfile_arranger.svg?style=flat)](https://codeclimate.com/github/sanemat/gemfile_arranger)
+[![Coverage Status](http://img.shields.io/coveralls/sanemat/gemfile_arranger/master.svg?style=flat)](https://coveralls.io/r/sanemat/gemfile_arranger)
+
+
 TODO: Write a gem description
 
 ## Installation
