@@ -78,10 +78,12 @@ class SortGemInGroupTraverser < Parser::AST::Processor
 
   def sort_gem_in_group(node)
     send_node, args_node, body_node = node.children
+
     return node if send_node.children[1] != :group
     return node if body_node.type != :begin
     gems = body_node.children.sort_by.with_index do |child, i|
-      [child.children[2].children[0], i]
+      gem_name = child.children[2].children[0]
+      [gem_name, i]
     end
     return node if body_node.children == gems
 
