@@ -4,3 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'byebug' if RUBY_VERSION >= '2'
+group :test do
+  gem 'coveralls', require: false, group: 'development'
+end
