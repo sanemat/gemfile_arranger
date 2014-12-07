@@ -5,26 +5,52 @@ require 'safe_yaml/load'
 require 'unparser'
 
 module GemfileArranger
+  class InitConfig < Thor::Group
+    include Thor::Actions
+    SHORT_DESCRIPTION = 'Generate a simple .gemfile_arranger.yml, placed in the current directory'
+
+    def self.source_root
+      File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
+    end
+
+    def create_gemfile_arranger_yml
+      copy_file '.gemfile_arranger.yml'
+    end
+  end
+
   class CLI < Thor
     default_task :arrange
 
-    desc 'version', "Prints the gemfile_arranger's version information"
+    desc 'version', "Print the gemfile_arranger's version information"
     def version
       puts "Gemfile Arranger version #{VERSION}"
     end
     map %w(-v --version) => :version
 
-    desc '', 'arrange arrange arrange'
-    option :gemfile
+    desc 'arrange', 'Arrange given Gemfile'
+    option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
-      base_config = SafeYAML.load_file('config/.gemfile_arranger.base.yml')
-      config = base_config
+      base_config_path = File.expand_path(
+        File.join(
+          File.dirname(__FILE__), '..', '..', 'config', '.gemfile_arranger.base.yml'
+        )
+      )
+      base_config = SafeYAML.load_file(base_config_path)
 
-      if options[:gemfile] && File.file?(options[:gemfile])
-        code = File.read(options[:gemfile])
+      require 'pathname'
+      root_path = Pathname.new Dir.pwd
+      user_config_path = root_path.join('.gemfile_arranger.yml')
+      if File.file?(user_config_path)
+        user_config = SafeYAML.load_file(user_config_path)
       else
-        fail 'Not implement.'
+        user_config = {}
       end
+
+      config = base_config.merge(user_config)
+
+      gemfile_path = root_path.join(options[:gemfile])
+      code = File.read(gemfile_path) if File.file?(gemfile_path)
+      fail("Can not read Gemfile: #{gemfile_path}") if code.nil?
 
       buffer        = Parser::Source::Buffer.new('(gemfile_arranger arrange)')
       buffer.source = code
@@ -42,5 +68,7 @@ module GemfileArranger
 
       puts Unparser.unparse(rewrited_ast)
     end
+
+    register(InitConfig, 'init', 'init', InitConfig::SHORT_DESCRIPTION)
   end
 end

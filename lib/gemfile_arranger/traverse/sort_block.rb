@@ -2,7 +2,7 @@ module GemfileArranger
   module Traverse
     class SortBlock < Parser::AST::Processor
       def initialize(keys)
-        @keys = Array(keys.dup).map(&:to_sym)
+        @keys = Array(keys).dup.map(&:to_sym)
       end
 
       def on_begin(node)

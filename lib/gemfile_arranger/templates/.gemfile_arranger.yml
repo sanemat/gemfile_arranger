@@ -1,0 +1,15 @@
+# Edit your configuration for gemfile_arranger
+#block_order:
+#  - source
+#  - ruby
+#  - gemspec
+#  - gem
+#  - group
+#group:
+#  - production
+#  - staging
+#  - development
+#  - test
+#priority_gem:
+#  - rails
+#  - redis

@@ -10,5 +10,3 @@ group:
   - development
   - test
 priority_gem:
-  - rails
-  - redis
