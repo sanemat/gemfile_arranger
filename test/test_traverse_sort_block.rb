@@ -3,6 +3,15 @@ require_relative 'helper'
 class TraverseSortBlockTest < Test::Unit::TestCase
   include AST::Sexp
 
+  def contents_to_ast(contents, as_file = true)
+    code = (as_file) ? '(' + contents + ')' : contents
+
+    buffer        = Parser::Source::Buffer.new('(contents_to_ast)')
+    buffer.source = code
+    parser        = Parser::CurrentRuby.new
+    parser.parse(buffer)
+  end
+
   test 'Sort by large categories' do
     # ----
     # gem 'bar'
