@@ -5,6 +5,18 @@ require 'safe_yaml/load'
 require 'unparser'
 
 module GemfileArranger
+  class InitConfig < Thor::Group
+    include Thor::Actions
+
+    def self.source_root
+      File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
+    end
+
+    def create_gemfile_arranger_yml
+      copy_file '.gemfile_arranger.yml'
+    end
+  end
+
   class CLI < Thor
     default_task :arrange
 
@@ -43,9 +55,6 @@ module GemfileArranger
       puts Unparser.unparse(rewrited_ast)
     end
 
-    desc 'init', 'Initialize configuration'
-    def init
-
-    end
+    register(InitConfig, 'init', 'init', 'Initialize configuration')
   end
 end
