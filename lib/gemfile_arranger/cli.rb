@@ -43,11 +43,11 @@ module GemfileArranger
 
       config = base_config.merge(user_config)
 
-      if options[:gemfile] && File.file?(options[:gemfile])
-        code = File.read(options[:gemfile])
-      else
-        fail 'Not implement.'
-      end
+      gemfile_path = (options[:gemfile]) \
+                     ? root_path.join(options[:gemfile])
+                     : root_path.join('Gemfile')
+      code = File.read(gemfile_path) if File.file?(gemfile_path)
+      fail("Can not read Gemfile: #{gemfile_path}") if code.nil?
 
       buffer        = Parser::Source::Buffer.new('(gemfile_arranger arrange)')
       buffer.source = code
