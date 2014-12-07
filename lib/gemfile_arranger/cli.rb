@@ -59,26 +59,32 @@ module GemfileArranger
     private
 
     def base_config
-      base_config_path = File.expand_path(
-        File.join(
-          File.dirname(__FILE__), '..', '..', 'config', '.gemfile_arranger.base.yml'
-        )
-      )
-      SafeYAML.load_file(base_config_path)
+      base_config_path = file_path
+                          .dirname
+                          .join('..', '..', 'config', '.gemfile_arranger.base.yml')
+                          .expand_path
+      fail "Can not read base config: #{base_config_path}" unless base_config_path.file?
+
+      base_config_contents = base_config_path.read
+      SafeYAML.load(base_config_contents) || {}
     end
 
     def user_config
-      user_config_path = root_path.join('.gemfile_arranger.yml')
+      user_config_path = root_path
+                          .join('.gemfile_arranger.yml')
+                          .expand_path
+      return {} unless user_config_path.file?
 
-      if File.file?(user_config_path)
-        user_config = SafeYAML.load_file(user_config_path)
-      else
-        user_config = {}
-      end
+      user_config_contents = user_config_path.read
+      SafeYAML.load(user_config_contents) || {}
     end
 
     def root_path
       Pathname.pwd
+    end
+
+    def file_path
+      Pathname.new(__FILE__)
     end
   end
 end
