@@ -37,7 +37,9 @@ module GemfileArranger
       require 'pathname'
       root_path = Pathname.new Dir.pwd
       user_config_path = root_path.join('.gemfile_arranger.yml')
-      user_config = (SafeYAML.load_file(user_config_path) if File.file?(user_config_path)) || {}
+      user_config = (File.file?(user_config_path)) \
+                    ? SafeYAML.load_file(user_config_path)
+                    : {}
 
       config = base_config.merge(user_config)
 
