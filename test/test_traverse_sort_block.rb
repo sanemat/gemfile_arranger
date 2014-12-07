@@ -39,8 +39,8 @@ class TraverseSortBlockTest < Test::Unit::TestCase
         s(:send, nil, :gem,
           s(:str, 'action_args')))
 
-    config = %w(source ruby gemspec gem group)
-    sort_block = GemfileArranger::Traverse::SortBlock.new(config)
+    block_order = %w(source ruby gemspec gem group)
+    sort_block = GemfileArranger::Traverse::SortBlock.new(block_order)
 
     assert do
       sort_block.process(ast) == ast_expected
@@ -62,8 +62,8 @@ class TraverseSortBlockTest < Test::Unit::TestCase
       gem 'action_args'
     EOS
 
-    config = %w(source ruby gemspec gem group)
-    sort_block = GemfileArranger::Traverse::SortBlock.new(config)
+    block_order = %w(source ruby gemspec gem group)
+    sort_block = GemfileArranger::Traverse::SortBlock.new(block_order)
 
     assert do
       sort_block.process(contents_to_ast(contents)) == contents_to_ast(expected)

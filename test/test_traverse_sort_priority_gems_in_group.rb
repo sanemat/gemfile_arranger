@@ -28,9 +28,9 @@ class TraverseSorPriorityGemsInGroupTest < Test::Unit::TestCase
       end
       ruby '2.1.5'
     EOS
-    config = %w(priority-1st priority-2nd)
+    priority_gems = %w(priority-1st priority-2nd)
 
-    sort_block = GemfileArranger::Traverse::SortPriorityGemsInGroup.new(config)
+    sort_block = GemfileArranger::Traverse::SortPriorityGemsInGroup.new(priority_gems)
 
     assert do
       sort_block.process(contents_to_ast(contents)) == contents_to_ast(expected)
