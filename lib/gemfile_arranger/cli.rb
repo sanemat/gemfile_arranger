@@ -29,7 +29,10 @@ module GemfileArranger
     desc '', 'arrange arrange arrange'
     option :gemfile
     def arrange
-      base_config = SafeYAML.load_file('config/.gemfile_arranger.base.yml')
+      base_config_path = File.expand_path(
+        File.join(File.dirname(__FILE__), '..', '..', 'config',  '.gemfile_arranger.base.yml')
+      )
+      base_config = SafeYAML.load_file(base_config_path)
       config = base_config
 
       if options[:gemfile] && File.file?(options[:gemfile])
