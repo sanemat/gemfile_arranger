@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'parser', '~> 2.2.0.pre.8'
   spec.add_dependency 'unparser'
   spec.add_dependency 'safe_yaml'
+  spec.add_development_dependency 'unindent'
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'test-unit'
