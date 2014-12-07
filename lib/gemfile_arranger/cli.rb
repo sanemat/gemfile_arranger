@@ -4,7 +4,7 @@ require 'thor'
 
 module GemfileArranger
   class CLI < Thor
-    desc "version", "Prints the gemfile_arranger's version information"
+    desc 'version', "Prints the gemfile_arranger's version information"
     def version
       puts "Gemfile Arranger version #{GemfileArranger::VERSION}"
     end
