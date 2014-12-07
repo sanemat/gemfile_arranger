@@ -57,5 +57,4 @@ class TraverseSorGemsInGroupTest < Test::Unit::TestCase
       sort_block.process(contents_to_ast(contents)) == contents_to_ast(expected)
     end
   end
-
 end
