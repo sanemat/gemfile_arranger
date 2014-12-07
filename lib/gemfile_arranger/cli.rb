@@ -64,9 +64,9 @@ module GemfileArranger
 
     def base_config
       base_config_path = file_path
-                          .dirname
-                          .join('..', '..', 'config', '.gemfile_arranger.base.yml')
-                          .expand_path
+                         .dirname
+                         .join('..', '..', 'config', '.gemfile_arranger.base.yml')
+                         .expand_path
       fail "Can not read base config: #{base_config_path}" unless base_config_path.file?
 
       base_config_contents = base_config_path.read
@@ -75,8 +75,8 @@ module GemfileArranger
 
     def user_config
       user_config_path = root_path
-                          .join('.gemfile_arranger.yml')
-                          .expand_path
+                         .join('.gemfile_arranger.yml')
+                         .expand_path
       return {} unless user_config_path.file?
 
       user_config_contents = user_config_path.read
