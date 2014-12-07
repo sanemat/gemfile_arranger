@@ -33,7 +33,13 @@ module GemfileArranger
         File.join(File.dirname(__FILE__), '..', '..', 'config',  '.gemfile_arranger.base.yml')
       )
       base_config = SafeYAML.load_file(base_config_path)
-      config = base_config
+
+      require 'pathname'
+      root_path = Pathname.new Dir.pwd
+      user_config_path = root_path.join('.gemfile_arranger.yml')
+      user_config = (SafeYAML.load_file(user_config_path) if File.file?(user_config_path)) || {}
+
+      config = base_config.merge(user_config)
 
       if options[:gemfile] && File.file?(options[:gemfile])
         code = File.read(options[:gemfile])
