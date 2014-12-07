@@ -21,7 +21,7 @@ module GemfileArranger
   class CLI < Thor
     default_task :arrange
 
-    desc 'version', "Prints the gemfile_arranger's version information"
+    desc 'version', "Print the gemfile_arranger's version information"
     def version
       puts "Gemfile Arranger version #{VERSION}"
     end
