@@ -34,6 +34,7 @@ module GemfileArranger
 
     desc 'arrange', 'Arrange given Gemfile'
     option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
+    option :auto_correct, type: :boolean, aliases: '-a', desc: 'Auto-correct Gemfile(5)'
     def arrange
       code = gemfile_contents(options[:gemfile])
 
@@ -51,7 +52,13 @@ module GemfileArranger
       sort_block = Traverse::SortBlock.new(config['block_order'])
       rewrited_ast = sort_block.process(rewrited_ast)
 
-      puts Unparser.unparse(rewrited_ast)
+      rewrited_gemfile = Unparser.unparse(rewrited_ast)
+      if options[:auto_correct]
+        rewrite_gemfile(rewrited_gemfile, options[:gemfile])
+        puts "Rewrite Gemfile compete! #{options[:gemfile]}"
+      else
+        puts rewrited_gemfile
+      end
     end
 
     desc 'show-config', 'Print applying configuration'
@@ -107,6 +114,13 @@ module GemfileArranger
 
     def file_path
       Pathname.new(__FILE__)
+    end
+
+    def rewrite_gemfile(contents, filename)
+      root_path
+        .join(filename)
+        .expand_path
+        .write(contents + "\n")
     end
   end
 end
