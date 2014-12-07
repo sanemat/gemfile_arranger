@@ -1,5 +1,4 @@
 require_relative 'helper'
-require 'unindent'
 
 class TraverseSortBlockTest < Test::Unit::TestCase
   include AST::Sexp
