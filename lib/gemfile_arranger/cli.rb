@@ -11,7 +11,11 @@ module GemfileArranger
     SHORT_DESCRIPTION = 'Generate a simple .gemfile_arranger.yml, placed in the current directory'
 
     def self.source_root
-      File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
+      Pathname
+        .new(__FILE__)
+        .dirname
+        .join('templates')
+        .expand_path
     end
 
     def create_gemfile_arranger_yml
