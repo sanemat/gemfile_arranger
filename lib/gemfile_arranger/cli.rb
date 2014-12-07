@@ -3,6 +3,7 @@ require 'gemfile_arranger/version'
 require 'thor'
 require 'safe_yaml/load'
 require 'unparser'
+require 'pathname'
 
 module GemfileArranger
   class InitConfig < Thor::Group
@@ -30,27 +31,11 @@ module GemfileArranger
     desc 'arrange', 'Arrange given Gemfile'
     option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
-      base_config_path = File.expand_path(
-        File.join(
-          File.dirname(__FILE__), '..', '..', 'config', '.gemfile_arranger.base.yml'
-        )
-      )
-      base_config = SafeYAML.load_file(base_config_path)
-
-      require 'pathname'
-      root_path = Pathname.new Dir.pwd
-      user_config_path = root_path.join('.gemfile_arranger.yml')
-      if File.file?(user_config_path)
-        user_config = SafeYAML.load_file(user_config_path)
-      else
-        user_config = {}
-      end
-
       config = base_config.merge(user_config)
 
       gemfile_path = root_path.join(options[:gemfile])
-      code = File.read(gemfile_path) if File.file?(gemfile_path)
-      fail("Can not read Gemfile: #{gemfile_path}") if code.nil?
+      fail "Can not read Gemfile: #{gemfile_path}" unless gemfile_path.file?
+      code = gemfile_path.read
 
       buffer        = Parser::Source::Buffer.new('(gemfile_arranger arrange)')
       buffer.source = code
@@ -70,5 +55,30 @@ module GemfileArranger
     end
 
     register(InitConfig, 'init', 'init', InitConfig::SHORT_DESCRIPTION)
+
+    private
+
+    def base_config
+      base_config_path = File.expand_path(
+        File.join(
+          File.dirname(__FILE__), '..', '..', 'config', '.gemfile_arranger.base.yml'
+        )
+      )
+      SafeYAML.load_file(base_config_path)
+    end
+
+    def user_config
+      user_config_path = root_path.join('.gemfile_arranger.yml')
+
+      if File.file?(user_config_path)
+        user_config = SafeYAML.load_file(user_config_path)
+      else
+        user_config = {}
+      end
+    end
+
+    def root_path
+      Pathname.pwd
+    end
   end
 end
