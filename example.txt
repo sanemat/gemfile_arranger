@@ -53,6 +53,5 @@ examples:
 
 - 裸のgemにgroupがついていたら?? -> { group: :development } がつくだけなので注意
 - Bundler::Dsl にpublicで定義されたメソッドしか使えない ホワイトリストで良さそう(ただし動的に作る)
-- test-unit with power-assert
 - Use thor
 - dog-fooding
