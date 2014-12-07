@@ -42,5 +42,10 @@ module GemfileArranger
 
       puts Unparser.unparse(rewrited_ast)
     end
+
+    desc 'init', 'Initialize configuration'
+    def init
+
+    end
   end
 end
