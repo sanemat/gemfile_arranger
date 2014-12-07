@@ -1,20 +1,5 @@
-cat "Gemfile" | GemfileArranger::Base.generate(GemfileArrange.traverse(GemfileArranger::Base.parse(ARGF.read))) > Gemfile
-
-sort order
-
-1. source
-2. ruby
-3. gemspec
-4. gem (group _nameless)
-5. group production
-6. group staging
-7. group development
-8. group test
-
 yaml setting(idea: .gemfile_arranger.yml)
 
-sort:
-  - ascii asc
 block_order:
   - source
   - ruby
@@ -53,5 +38,4 @@ examples:
 
 - 裸のgemにgroupがついていたら?? -> { group: :development } がつくだけなので注意
 - Bundler::Dsl にpublicで定義されたメソッドしか使えない ホワイトリストで良さそう(ただし動的に作る)
-- Use thor
 - dog-fooding
