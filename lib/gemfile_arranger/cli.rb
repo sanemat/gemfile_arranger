@@ -31,16 +31,20 @@ module GemfileArranger
     option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
       base_config_path = File.expand_path(
-        File.join(File.dirname(__FILE__), '..', '..', 'config', '.gemfile_arranger.base.yml')
+        File.join(
+          File.dirname(__FILE__), '..', '..', 'config', '.gemfile_arranger.base.yml'
+        )
       )
       base_config = SafeYAML.load_file(base_config_path)
 
       require 'pathname'
       root_path = Pathname.new Dir.pwd
       user_config_path = root_path.join('.gemfile_arranger.yml')
-      user_config = (File.file?(user_config_path)) \
-                    ? SafeYAML.load_file(user_config_path)
-                    : {}
+      if File.file?(user_config_path)
+        user_config = SafeYAML.load_file(user_config_path)
+      else
+        user_config = {}
+      end
 
       config = base_config.merge(user_config)
 
