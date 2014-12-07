@@ -7,6 +7,7 @@ require 'unparser'
 module GemfileArranger
   class InitConfig < Thor::Group
     include Thor::Actions
+    SHORT_DESCRIPTION = 'Generate a simple .gemfile_arranger.yml, placed in the current directory'
 
     def self.source_root
       File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
@@ -66,6 +67,6 @@ module GemfileArranger
       puts Unparser.unparse(rewrited_ast)
     end
 
-    register(InitConfig, 'init', 'init', 'Initialize configuration')
+    register(InitConfig, 'init', 'init', InitConfig::SHORT_DESCRIPTION)
   end
 end
