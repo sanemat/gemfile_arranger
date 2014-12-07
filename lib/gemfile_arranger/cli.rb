@@ -27,8 +27,8 @@ module GemfileArranger
     end
     map %w(-v --version) => :version
 
-    desc '', 'arrange arrange arrange'
-    option :gemfile
+    desc 'arrange', 'Arrange given Gemfile'
+    option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
       base_config_path = File.expand_path(
         File.join(File.dirname(__FILE__), '..', '..', 'config',  '.gemfile_arranger.base.yml')
@@ -44,9 +44,7 @@ module GemfileArranger
 
       config = base_config.merge(user_config)
 
-      gemfile_path = (options[:gemfile]) \
-                     ? root_path.join(options[:gemfile])
-                     : root_path.join('Gemfile')
+      gemfile_path = root_path.join(options[:gemfile])
       code = File.read(gemfile_path) if File.file?(gemfile_path)
       fail("Can not read Gemfile: #{gemfile_path}") if code.nil?
 
