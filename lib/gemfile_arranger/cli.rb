@@ -35,11 +35,7 @@ module GemfileArranger
     desc 'arrange', 'Arrange given Gemfile'
     option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
-      config = base_config.merge(user_config)
-
-      gemfile_path = root_path.join(options[:gemfile])
-      fail "Can not read Gemfile: #{gemfile_path}" unless gemfile_path.file?
-      code = gemfile_path.read
+      code = gemfile_contents(options[:gemfile])
 
       buffer        = Parser::Source::Buffer.new('(gemfile_arranger arrange)')
       buffer.source = code
@@ -56,6 +52,16 @@ module GemfileArranger
       rewrited_ast = sort_block.process(rewrited_ast)
 
       puts Unparser.unparse(rewrited_ast)
+    end
+
+    desc 'show-config', 'Print applying configuration'
+    def show_config
+      puts config
+    end
+
+    desc 'show-base-config', 'Print original base configuration'
+    def show_base_config
+      puts base_config
     end
 
     register(InitConfig, 'init', 'init', InitConfig::SHORT_DESCRIPTION)
@@ -81,6 +87,18 @@ module GemfileArranger
 
       user_config_contents = user_config_path.read
       SafeYAML.load(user_config_contents) || {}
+    end
+
+    def config
+      base_config.merge(user_config)
+    end
+
+    def gemfile_contents(filename)
+      gemfile_path = root_path
+                     .join(filename)
+                     .expand_path
+      fail "Can not read Gemfile: #{gemfile_path}" unless gemfile_path.file?
+      gemfile_path.read
     end
 
     def root_path
