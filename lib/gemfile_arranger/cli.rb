@@ -31,7 +31,7 @@ module GemfileArranger
     option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
       base_config_path = File.expand_path(
-        File.join(File.dirname(__FILE__), '..', '..', 'config',  '.gemfile_arranger.base.yml')
+        File.join(File.dirname(__FILE__), '..', '..', 'config', '.gemfile_arranger.base.yml')
       )
       base_config = SafeYAML.load_file(base_config_path)
 
