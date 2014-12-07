@@ -2,13 +2,7 @@ require_relative 'helper'
 
 class TraverseSortBlockTest < Test::Unit::TestCase
   include AST::Sexp
-
-  def contents_to_ast(contents)
-    buffer        = Parser::Source::Buffer.new('(contents_to_ast)')
-    buffer.source = contents
-    parser        = Parser::CurrentRuby.new
-    parser.parse(buffer)
-  end
+  include GemfileArranger::Testing
 
   test 'Sort by large categories' do
     # ----
@@ -50,29 +44,6 @@ class TraverseSortBlockTest < Test::Unit::TestCase
 
     assert do
       sort_block.process(ast) == ast_expected
-    end
-  end
-
-  test 'Equal contents_to_ast' do
-    contents = <<-EOS.unindent
-      gem 'bar'
-      gem 'action_args'
-      source 'https://rubygems.org'
-      ruby '2.1.5'
-    EOS
-    ast = \
-      s(:begin,
-        s(:send, nil, :gem,
-          s(:str, 'bar')),
-        s(:send, nil, :gem,
-          s(:str, 'action_args')),
-        s(:send, nil, :source,
-          s(:str, 'https://rubygems.org')),
-        s(:send, nil, :ruby,
-          s(:str, '2.1.5')))
-
-    assert do
-      contents_to_ast(contents) == ast
     end
   end
 
