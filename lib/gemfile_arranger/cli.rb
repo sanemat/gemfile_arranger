@@ -35,9 +35,7 @@ module GemfileArranger
     desc 'arrange', 'Arrange given Gemfile'
     option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
-      gemfile_path = root_path.join(options[:gemfile])
-      fail "Can not read Gemfile: #{gemfile_path}" unless gemfile_path.file?
-      code = gemfile_path.read
+      code = gemfile_contents(options[:gemfile])
 
       buffer        = Parser::Source::Buffer.new('(gemfile_arranger arrange)')
       buffer.source = code
@@ -93,6 +91,14 @@ module GemfileArranger
 
     def config
       base_config.merge(user_config)
+    end
+
+    def gemfile_contents(filename)
+      gemfile_path = root_path
+                     .join(filename)
+                     .expand_path
+      fail "Can not read Gemfile: #{gemfile_path}" unless gemfile_path.file?
+      gemfile_path.read
     end
 
     def root_path
