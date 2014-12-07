@@ -56,6 +56,16 @@ module GemfileArranger
       puts Unparser.unparse(rewrited_ast)
     end
 
+    desc 'print-config', 'Print applying configuration'
+    def print_config
+      puts config
+    end
+
+    desc 'print-base-config', 'Print original base configuration'
+    def print_base_config
+      puts base_config
+    end
+
     register(InitConfig, 'init', 'init', InitConfig::SHORT_DESCRIPTION)
 
     private
