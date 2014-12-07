@@ -2,7 +2,7 @@ module GemfileArranger
   module Traverse
     class SortPriorityGemsInGroup < Parser::AST::Processor
       def initialize(keys)
-        @keys = Array(keys.dup).map(&:to_s)
+        @keys = Array(keys).dup.map(&:to_s)
       end
 
       def on_block(node)
