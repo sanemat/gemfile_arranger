@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = GemfileArranger::VERSION
   spec.authors       = ['sanemat']
   spec.email         = ['o.gata.ken@gmail.com']
-  spec.summary       = 'TODO: Write a short summary. Required.'
-  spec.description   = 'TODO: Write a longer description. Optional.'
-  spec.homepage      = ''
+  spec.summary       = 'A Gemfile file scrubber for the truly insane.'
+  spec.description   = 'Sort gems, fix indent, etc.'
+  spec.homepage      = 'https://github.com/sanemat/gemfile_arranger'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
