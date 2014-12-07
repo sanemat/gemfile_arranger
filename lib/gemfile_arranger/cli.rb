@@ -35,8 +35,6 @@ module GemfileArranger
     desc 'arrange', 'Arrange given Gemfile'
     option :gemfile, default: 'Gemfile', desc: 'The location of the Gemfile(5)'
     def arrange
-      config = base_config.merge(user_config)
-
       gemfile_path = root_path.join(options[:gemfile])
       fail "Can not read Gemfile: #{gemfile_path}" unless gemfile_path.file?
       code = gemfile_path.read
@@ -81,6 +79,10 @@ module GemfileArranger
 
       user_config_contents = user_config_path.read
       SafeYAML.load(user_config_contents) || {}
+    end
+
+    def config
+      base_config.merge(user_config)
     end
 
     def root_path
