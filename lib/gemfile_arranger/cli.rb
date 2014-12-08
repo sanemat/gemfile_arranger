@@ -54,12 +54,7 @@ module GemfileArranger
       rewrited_ast = sort_block.process(rewrited_ast)
 
       rewrited_gemfile = Unparser.unparse(rewrited_ast)
-      if options[:auto_correct]
-        rewrite_gemfile(rewrited_gemfile, options[:gemfile])
-        puts "Rewrite Gemfile compete! #{options[:gemfile]}"
-      else
-        puts rewrited_gemfile
-      end
+      output_result(rewrited_gemfile, options)
     end
 
     desc 'show-config', 'Print applying configuration'
@@ -115,6 +110,15 @@ module GemfileArranger
 
     def file_path
       Pathname.new(__FILE__)
+    end
+
+    def output_result(contents, options)
+      if options[:auto_correct]
+        rewrite_gemfile(contents, options[:gemfile])
+        puts "Rewrite Gemfile complete! #{options[:gemfile]}"
+      else
+        puts contents
+      end
     end
 
     def rewrite_gemfile(contents, filename)
