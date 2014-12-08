@@ -4,6 +4,7 @@ require 'thor'
 require 'safe_yaml/load'
 require 'unparser'
 require 'pathname'
+require 'yaml'
 
 module GemfileArranger
   class InitConfig < Thor::Group
@@ -63,12 +64,12 @@ module GemfileArranger
 
     desc 'show-config', 'Print applying configuration'
     def show_config
-      puts config
+      puts YAML.dump(config)
     end
 
     desc 'show-base-config', 'Print original base configuration'
     def show_base_config
-      puts base_config
+      puts YAML.dump(base_config)
     end
 
     register(InitConfig, 'init', 'init', InitConfig::SHORT_DESCRIPTION)
